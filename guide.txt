@@ -1,0 +1,23 @@
+1. vscode extensions
+- ESLint https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+- Prettier - Code formatter https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+- EditorConfig for VS Code https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+- Prisma https://marketplace.visualstudio.com/items?itemName=Prisma.prisma
+
+2. How to install and run
+- npm install
+- npm run dev (for development)
+- npm run build and npm run start (for production)
+- npm run lint (for check lint)
+- npm run lint:fix (for fix lint)
+- npm run prettier (for check prettier)
+- npm run prettier:fix (for fix prettier)
+
+3. Note
+- skip error checking before build: open package.json and modify "build" script to "rimraf ./dist && tsc --noCheck && tsc-alias"
+- install @types/library-name if you want to use library in typescript
+- how to import ES module: import('library-name').default
+
+4. Reference
+- https://duthanhduoc.com/blog/setup-du-an-nodejs-typescript#Cau-hinh-file-config-cho-Prettier
+- https://medium.com/@karthik.skreddy24/building-a-restful-api-with-node-js-express-js-sequelize-orm-and-swagger-for-crud-operations-c294cd9f988#bf94
