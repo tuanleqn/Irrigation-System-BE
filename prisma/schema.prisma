@@ -13,9 +13,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String @id
-  username String @unique
-  password String
-  role     String
+enum Role {
+  ADMIN
+  USER
+}
+
+model Member {
+  id           String @id @default(nanoid(6))
+  username     String @unique
+  password     String
+  email        String @unique
+  role         Role
+  refreshToken String @unique
+
+  // if member == USER
+  preferences   String?
+  notifications Notification[]
+
+  // if member == ADMIN
+  permissions    String?
+  configurations Configuration[]
+
+  // manage relationship
+  adminId String?
+  admin   Member?  @relation("Manage", fields: [adminId], references: [id])
+  manage  Member[] @relation("Manage")
+}
+
+model Notification {
+  id        String   @id @default(nanoid(6))
+  content   String
+  timestamp DateTime @default(now())
+
+  memberId String?
+  member   Member? @relation(fields: [memberId], references: [id])
+}
+
+model Configuration {
+  id             String  @id @default(nanoid(6))
+  parameterName  String
+  parameterValue String
+  description    String?
+
+  memberId String?
+  member   Member? @relation(fields: [memberId], references: [id])
+}
+
+model Sensor {
+  id       String @id @default(nanoid(6))
+  type     String
+  location String
+
+  sensorDatas SensorData[]
+}
+
+model SensorData {
+  id        String   @id @default(nanoid(6))
+  value     Float
+  timestamp DateTime @default(now())
+
+  sensorId String?
+  sensor   Sensor? @relation(fields: [sensorId], references: [id])
+
+  irrigationEvents IrrigationEvent[]
+}
+
+model IrrigationEvent {
+  id             String   @id @default(nanoid(6))
+  activationMode Boolean
+  timestamp      DateTime @default(now())
+  status         String
+
+  sensorDataId String?
+  sensorData   SensorData? @relation(fields: [sensorDataId], references: [id])
 }
