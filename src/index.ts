@@ -16,6 +16,10 @@ process.on('SIGINT', async () => {
 })
 
 //! Routes
+//* Redirect root URL to /api-docs
+app.get('/', (req, res) => {
+  res.redirect('/api-docs')
+})
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.use('/users', usersRouter)
