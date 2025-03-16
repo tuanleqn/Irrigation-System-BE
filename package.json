@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "Le Duc Anh Tuan",
