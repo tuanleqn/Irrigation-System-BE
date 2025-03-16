@@ -9,5 +9,7 @@ export const USERS_MESSAGES = {
   PASSWORD_MUST_BE_A_STRING: 'Password must be a string',
   PASSWORD_LENGTH_MUST_BE_FROM_6_TO_50: 'Password length must be from 6 to 50',
   PASSWORD_MUST_BE_STRONG: 'Password must be strong',
-  LOGIN_SUCCESS: 'Login success'
+  LOGIN_SUCCESS: 'Login success',
+  ACCESS_TOKEN_IS_REQUIRED: 'Access token is required',
+  ACCESS_TOKEN_IS_INVALID: 'Access token is invalid'
 } as const

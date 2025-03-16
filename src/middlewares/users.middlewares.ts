@@ -3,6 +3,12 @@ import { USERS_MESSAGES } from '~/constants/messages'
 import { validate } from '~/utils/validation'
 import { hashPassword } from '~/utils/crypto'
 import dbInstance from '~/models/db'
+import { ErrorWithStatus } from '~/models/Errors'
+import HTTP_STATUS from '~/constants/httpStatus'
+import { verifyToken } from '~/utils/jwt'
+import { JsonWebTokenError } from 'jsonwebtoken'
+import { capitalize } from 'lodash'
+import { NextFunction, Request } from 'express'
 
 export const loginValidator = validate(
   checkSchema(
@@ -58,3 +64,45 @@ export const loginValidator = validate(
     ['body']
   )
 )
+export const accessTokenValidator = validate(
+  checkSchema(
+    {
+      Authorization: {
+        custom: {
+          options: async (value: string, { req }) => {
+            const access_token = (value || '').split(' ')[1]
+            if (!access_token) {
+              throw new ErrorWithStatus({
+                message: USERS_MESSAGES.ACCESS_TOKEN_IS_REQUIRED,
+                status: HTTP_STATUS.UNAUTHORIZED
+              })
+            }
+            try {
+              const decoded_authorization = await verifyToken({
+                token: access_token,
+                secretOrPublicKey: process.env.JWT_SECRET_ACCESS_TOKEN as string
+              })
+              ;(req as Request).decoded_authorization = decoded_authorization
+            } catch (error) {
+              throw new ErrorWithStatus({
+                message: capitalize((error as JsonWebTokenError).message),
+                status: HTTP_STATUS.UNAUTHORIZED
+              })
+            }
+            return true
+          }
+        }
+      }
+    },
+    ['headers']
+  )
+)
+
+export const isUserLoggedInValidator = (middleware: (req: Request, res: Response, next: NextFunction) => void) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (req.headers.authorization) {
+      return middleware(req, res, next)
+    }
+    next()
+  }
+}

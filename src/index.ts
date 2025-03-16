@@ -18,5 +18,6 @@ app.use('/users', usersRouter)
 
 app.listen(process.env.BE_PORT, () => {
   console.log(`Server is running on port ${process.env.BE_PORT}
-Access the server at http://localhost:${process.env.BE_PORT}`)
+Access the local server at http://localhost:${process.env.BE_PORT}
+or the network server at https://irrigation-system-be.onrender.com/`)
 })
