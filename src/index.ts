@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 dotenv.config()
 import dbInstance from './models/db'
 import usersRouter from './routes/users.routes'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from '../swagger/swagger.json'
 
 const app = express()
 app.use(express.json())
@@ -14,6 +16,8 @@ process.on('SIGINT', async () => {
 })
 
 //! Routes
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
 app.use('/users', usersRouter)
 
 app.listen(process.env.BE_PORT, () => {
