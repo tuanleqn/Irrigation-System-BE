@@ -24,7 +24,7 @@ model Member {
   password     String
   email        String @unique
   role         Role
-  refreshToken String @unique
+  refreshToken String
 
   // if member == USER
   preferences   String?

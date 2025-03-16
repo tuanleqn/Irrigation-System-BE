@@ -13,3 +13,11 @@ export const loginController = async (req: Request<ParamsDictionary, any, LoginR
     result
   })
 }
+
+export const registerController = async (req: Request<ParamsDictionary, any, LoginReqBody>, res: Response) => {
+  const result = await userService.register(req.body)
+  return res.json({
+    message: USERS_MESSAGES.REGISTER_SUCCESS,
+    result
+  })
+}

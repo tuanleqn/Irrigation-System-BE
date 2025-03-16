@@ -64,6 +64,49 @@ export const loginValidator = validate(
     ['body']
   )
 )
+
+export const registerValidator = validate(
+  checkSchema(
+    {
+      email: {
+        isEmail: {
+          errorMessage: USERS_MESSAGES.EMAIL_IS_INVALID
+        },
+        trim: true,
+        custom: {
+          options: async (value, { req }) => {
+            const user = await dbInstance.getClient().member.findFirst({
+              where: {
+                email: value
+              }
+            })
+            if (user) {
+              throw new Error(USERS_MESSAGES.USER_EXISTS)
+            }
+            return true
+          }
+        }
+      },
+      password: {
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.PASSWORD_IS_REQUIRED
+        },
+        isString: {
+          errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_A_STRING
+        },
+        isLength: {
+          options: {
+            min: 6,
+            max: 50
+          },
+          errorMessage: USERS_MESSAGES.PASSWORD_LENGTH_MUST_BE_FROM_6_TO_50
+        }
+      }
+    },
+    ['body']
+  )
+)
+
 export const accessTokenValidator = validate(
   checkSchema(
     {

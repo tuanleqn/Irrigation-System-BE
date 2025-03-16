@@ -1,6 +1,7 @@
 import { signToken } from '~/utils/jwt'
 import { TokenType } from '~/constants/enums'
 import dbInstance from '~/models/db'
+import { hashPassword } from '~/utils/crypto'
 
 class UsersService {
   private signAccessToken(user_id: string) {
@@ -37,6 +38,31 @@ class UsersService {
     await dbInstance.getClient().member.update({
       where: {
         id: user_id
+      },
+      data: {
+        refreshToken: refresh_token
+      }
+    })
+    return {
+      access_token,
+      refresh_token
+    }
+  }
+
+  async register(req_body: any) {
+    const user = await dbInstance.getClient().member.create({
+      data: {
+        email: req_body.email,
+        password: hashPassword(req_body.password),
+        username: req_body.username || req_body.email.split('@')[0],
+        role: req_body.role || 'USER',
+        refreshToken: ''
+      }
+    })
+    const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user.id)
+    await dbInstance.getClient().member.update({
+      where: {
+        id: user.id
       },
       data: {
         refreshToken: refresh_token
