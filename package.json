@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "Le Duc Anh Tuan",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@prisma/client": "^6.5.0",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/lodash": "^4.17.16",
