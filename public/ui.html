@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiển thị chỉ số thời gian thực</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUa6mY5+2Q6Bp4p7lV1u6h/2gOvI6cnl0vPj8pUjXG9vYo9um4L6WHg3Oa6+" crossorigin="anonymous">
+  <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+  <style>
+    .card {
+      margin: 15px 0;
+    }
+
+    .card-header {
+      background-color: #007BFF;
+      color: white;
+      font-weight: bold;
+    }
+
+    .card-title {
+      font-size: 2rem;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="my-4 text-center">Chỉ số Thời Gian Thực</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Nhiệt độ
+          </div>
+          <div class="card-body">
+            <h5 id="temperature" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Độ ẩm
+          </div>
+          <div class="card-body">
+            <h5 id="humidity" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Độ ẩm đất
+          </div>
+          <div class="card-body">
+            <h5 id="soilMoisture" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const socket = io('http://localhost:4001');
+    socket.on('temperature', (data) => {
+      console.log('Nhận dữ liệu nhiệt độ:', data);
+      document.getElementById('temperature').textContent = data.value;
+    });
+    socket.on('humidity', (data) => {
+      console.log('Nhận dữ liệu độ ẩm:', data);
+      document.getElementById('humidity').textContent = data.value;
+    });
+    socket.on('soilMoisture', (data) => {
+      console.log('Nhận dữ liệu độ ẩm đất:', data);
+      document.getElementById('soilMoisture').textContent = data.value;
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+oj5F0nJp3zV+4E6Mczs9BZp6+8nL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

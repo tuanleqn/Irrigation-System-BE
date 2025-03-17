@@ -4,3 +4,8 @@ export enum TokenType {
   ForgotPasswordToken,
   EmailVerifyToken
 }
+
+export enum Topic {
+  Temperature = 'temperature',
+  SoilMoisture = 'soil-moisture'
+}
