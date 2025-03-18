@@ -156,7 +156,7 @@ usersRouter.post('/logout', refreshTokenValidator, wrapRequestHandler(logoutCont
  *              example: "your_refresh_token_here"
  *   responses:
  *    200:
- *      description: New access token generated
+ *      description: New access token and refresh token generated
  *      content:
  *        application/json:
  *          schema:
