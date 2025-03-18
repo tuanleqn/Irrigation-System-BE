@@ -16,6 +16,7 @@ export const loginController = async (req: Request<ParamsDictionary, any, LoginR
 
 export const logoutController = async (req: Request<ParamsDictionary, any, LogoutReqBody>, res: Response) => {
   await userService.logout(req.body.refreshToken)
+  res.clearCookie('user')
   return res.json({
     message: USERS_MESSAGES.LOGOUT_SUCCESS
   })
