@@ -113,7 +113,12 @@
     </div>
   </div>
   <script>
-    const socket = io('http://localhost:4001');
+    const socket = io('ws://localhost:4001');
+    // const socket = io('wss://irrigation-system-be.onrender.com', {
+    //   secure: true,
+    //   transports: ['websocket'],
+    //   rejectUnauthorized: false
+    // });
     socket.on('temperature', (data) => {
       console.log('Nhận dữ liệu nhiệt độ:', data);
       document.getElementById('temperature').textContent = data.value;

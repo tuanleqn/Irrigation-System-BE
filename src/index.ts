@@ -36,7 +36,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/users', usersRouter)
 
 //! MQTT
-const io = new Server(server, { cors: { origin: '*' } })
+const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } })
 initMQTT(io)
 
 //! Database connection

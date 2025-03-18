@@ -14,6 +14,10 @@ mqttClient.on('error', (error) => {
 })
 
 export const initMQTT = (io: Server) => {
+  io.on('connection', (socket) => {
+    console.log('🔌 New client connected:', socket.id)
+  })
+
   mqttClient.on('connect', () => {
     try {
       console.log('✅ Connected to Adafruit IO MQTT')
