@@ -65,6 +65,30 @@ export const loginValidator = validate(
   )
 )
 
+export const logoutValidator = validate(
+  checkSchema(
+    {
+      refreshToken: {
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.REFRESH_TOKEN_IS_REQUIRED
+        },
+        custom: {
+          options: async (value, { req }) => {
+            const refreshToken = await dbInstance.getClient().member.findFirst({
+              where: { refreshToken: value }
+            })
+            if (!refreshToken) {
+              throw new Error(USERS_MESSAGES.REFRESH_TOKEN_IS_INVALID)
+            }
+            return true
+          }
+        }
+      }
+    },
+    ['body']
+  )
+)
+
 export const registerValidator = validate(
   checkSchema(
     {

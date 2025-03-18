@@ -10,7 +10,10 @@ export const USERS_MESSAGES = {
   PASSWORD_LENGTH_MUST_BE_FROM_6_TO_50: 'Password length must be from 6 to 50',
   PASSWORD_MUST_BE_STRONG: 'Password must be strong',
   LOGIN_SUCCESS: 'Login success',
+  LOGOUT_SUCCESS: 'Logout success',
   REGISTER_SUCCESS: 'Register success',
   ACCESS_TOKEN_IS_REQUIRED: 'Access token is required',
-  ACCESS_TOKEN_IS_INVALID: 'Access token is invalid'
+  ACCESS_TOKEN_IS_INVALID: 'Access token is invalid',
+  REFRESH_TOKEN_IS_REQUIRED: 'Refresh token is required',
+  REFRESH_TOKEN_IS_INVALID: 'Refresh token is invalid'
 } as const

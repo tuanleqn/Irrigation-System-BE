@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
 import { USERS_MESSAGES } from '~/constants/messages'
-import { LoginReqBody } from '~/models/Requests/user.requests'
+import { LoginReqBody, LogoutReqBody } from '~/models/Requests/user.requests'
 import userService from '~/services/users.services'
 
 export const loginController = async (req: Request<ParamsDictionary, any, LoginReqBody>, res: Response) => {
@@ -11,6 +11,13 @@ export const loginController = async (req: Request<ParamsDictionary, any, LoginR
   return res.json({
     message: USERS_MESSAGES.LOGIN_SUCCESS,
     result
+  })
+}
+
+export const logoutController = async (req: Request<ParamsDictionary, any, LogoutReqBody>, res: Response) => {
+  await userService.logout(req.body.refreshToken)
+  return res.json({
+    message: USERS_MESSAGES.LOGOUT_SUCCESS
   })
 }
 

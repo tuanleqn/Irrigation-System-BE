@@ -49,6 +49,13 @@ class UsersService {
     }
   }
 
+  async logout(refresh_token: string) {
+    await dbInstance.getClient().member.updateMany({
+      where: { refreshToken: refresh_token },
+      data: { refreshToken: '' }
+    })
+  }
+
   async register(req_body: any) {
     const user = await dbInstance.getClient().member.create({
       data: {
