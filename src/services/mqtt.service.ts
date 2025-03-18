@@ -3,11 +3,18 @@ import { Server } from 'socket.io'
 import dbInstance from '~/models/db'
 import { Topic } from '~/constants/enums'
 
-const mqttClient = mqtt.connect(`${process.env.MQTT_URL}`, {
-  username: `${process.env.ADAFRUIT_IO_USERNAME}`,
-  password: `${process.env.ADAFRUIT_IO_KEY}`
+// const mqttClient = mqtt.connect(`${process.env.MQTT_URL}`, {
+//   username: `${process.env.ADAFRUIT_IO_USERNAME}`,
+//   password: `${process.env.ADAFRUIT_IO_KEY}`
+// })
+// const topics = Object.values(Topic).map((topic) => `${process.env.ADAFRUIT_IO_USERNAME}/feeds/${topic}`)
+
+const mqttClient = mqtt.connect('wss://io.adafruit.com:443', {
+  username: 'tranhaithaoquang',
+  password: 'aio_oepv90ubX4ijKGNQ7VJYTLfyYrxi'
 })
-const topics = Object.values(Topic).map((topic) => `${process.env.ADAFRUIT_IO_USERNAME}/feeds/${topic}`)
+
+const topics = Object.values(Topic).map((topic) => `tranhaithaoquang/feeds/${topic}`)
 
 mqttClient.on('error', (error) => {
   console.error('❌ MQTT connection error:', error)
