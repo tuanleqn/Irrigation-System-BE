@@ -60,6 +60,56 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Ngưỡng độ ẩm cao
+          </div>
+          <div class="card-body">
+            <h5 id="moistureThresholdHigh" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Ngưỡng độ ẩm thấp
+          </div>
+          <div class="card-body">
+            <h5 id="moistureThresholdLow" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Chế độ bơm
+          </div>
+          <div class="card-body">
+            <h5 id="pumpMode" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Trạng thái bơm
+          </div>
+          <div class="card-body">
+            <h5 id="pumpState" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-header">
+            Rơ le tới bơm
+          </div>
+          <div class="card-body">
+            <h5 id="relayToPump" class="card-title">N/A</h5>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script>
@@ -75,6 +125,26 @@
     socket.on('soilMoisture', (data) => {
       console.log('Nhận dữ liệu độ ẩm đất:', data);
       document.getElementById('soilMoisture').textContent = data.value;
+    });
+    socket.on('moistureThresholdHigh', (data) => {
+      console.log('Nhận dữ liệu ngưỡng độ ẩm cao:', data);
+      document.getElementById('moistureThresholdHigh').textContent = data.value;
+    });
+    socket.on('moistureThresholdLow', (data) => {
+      console.log('Nhận dữ liệu ngưỡng độ ẩm thấp:', data);
+      document.getElementById('moistureThresholdLow').textContent = data.value;
+    });
+    socket.on('pumpMode', (data) => {
+      console.log('Nhận dữ liệu chế độ bơm:', data);
+      document.getElementById('pumpMode').textContent = data.value;
+    });
+    socket.on('pumpState', (data) => {
+      console.log('Nhận dữ liệu trạng thái bơm:', data);
+      document.getElementById('pumpState').textContent = data.value;
+    });
+    socket.on('relayToPump', (data) => {
+      console.log('Nhận dữ liệu rơ le tới bơm:', data);
+      document.getElementById('relayToPump').textContent = data.value;
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

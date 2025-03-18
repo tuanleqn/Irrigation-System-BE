@@ -7,5 +7,11 @@ export enum TokenType {
 
 export enum Topic {
   Temperature = 'temperature',
-  SoilMoisture = 'soil-moisture'
+  SoilMoisture = 'soil-moisture',
+  Humidity = 'humidity',
+  MoistureThresholdHigh = 'moisture-threshold-high',
+  MoistureThresholdLow = 'moisture-threshold-low',
+  PumpMode = 'pump-mode',
+  PumpState = 'pump-state',
+  RelayToPump = 'relay-to-pump'
 }
