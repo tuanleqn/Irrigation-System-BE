@@ -1,3 +1,4 @@
+import exp from 'constants'
 import { Request, Response } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
 import { USERS_MESSAGES } from '~/constants/messages'
@@ -19,6 +20,15 @@ export const logoutController = async (req: Request<ParamsDictionary, any, Logou
   res.clearCookie('user')
   return res.json({
     message: USERS_MESSAGES.LOGOUT_SUCCESS
+  })
+}
+
+export const refreshTokenController = async (req: Request<ParamsDictionary, any, LogoutReqBody>, res: Response) => {
+  const oldRefreshToken = req.body.refreshToken
+  const result = await userService.refreshToken(oldRefreshToken)
+  return res.json({
+    message: USERS_MESSAGES.REFRESH_TOKEN_SUCCESS,
+    result
   })
 }
 

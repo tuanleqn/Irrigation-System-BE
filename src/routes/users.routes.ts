@@ -1,6 +1,11 @@
 import Router from 'express'
-import { loginController, logoutController, registerController } from '~/controllers/users.controllers'
-import { loginValidator, logoutValidator, registerValidator } from '~/middlewares/users.middlewares'
+import {
+  loginController,
+  logoutController,
+  registerController,
+  refreshTokenController
+} from '~/controllers/users.controllers'
+import { loginValidator, refreshTokenValidator, registerValidator } from '~/middlewares/users.middlewares'
 import { wrapRequestHandler } from '~/utils/handler'
 
 const usersRouter = Router()
@@ -128,6 +133,43 @@ usersRouter.post('/register', registerValidator, wrapRequestHandler(registerCont
  *                   type: string
  *                   example: "Logout success"
  */
-usersRouter.post('/logout', logoutValidator, wrapRequestHandler(logoutController))
+usersRouter.post('/logout', refreshTokenValidator, wrapRequestHandler(logoutController))
+
+/**
+ * @swagger
+ * /users/refresh-token:
+ *  post:
+ *   summary: Refresh access token
+ *   description: Generate a new access token using the refresh token
+ *   tags: [User]
+ *   requestBody:
+ *    required: true
+ *    content:
+ *      application/json:
+ *        schema:
+ *          type: object
+ *          required:
+ *            - refreshToken
+ *          properties:
+ *            refreshToken:
+ *              type: string
+ *              example: "your_refresh_token_here"
+ *   responses:
+ *    200:
+ *      description: New access token generated
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              access_token:
+ *                type: string
+ *                example: "new_access_token_here"
+ *              refresh_token:
+ *                type: string
+ *                example: "new_refresh_token_here"
+ */
+
+usersRouter.post('/refresh-token', refreshTokenValidator, wrapRequestHandler(refreshTokenController))
 
 export default usersRouter

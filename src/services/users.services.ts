@@ -56,6 +56,24 @@ class UsersService {
     })
   }
 
+  async refreshToken(oldRefreshToken: string) {
+    const user = await dbInstance.getClient().member.findFirst({
+      where: { refreshToken: oldRefreshToken }
+    })
+    if (!user) {
+      throw new Error('Invalid refresh token')
+    }
+    const [newAccessToken, newRefreshToken] = await this.signAccessAndRefreshToken(user.id)
+    await dbInstance.getClient().member.update({
+      where: { id: user.id },
+      data: { refreshToken: newRefreshToken }
+    })
+    return {
+      access_token: newAccessToken,
+      refresh_token: newRefreshToken
+    }
+  }
+
   async register(req_body: any) {
     const user = await dbInstance.getClient().member.create({
       data: {

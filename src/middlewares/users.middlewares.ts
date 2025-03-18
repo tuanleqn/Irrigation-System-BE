@@ -65,7 +65,7 @@ export const loginValidator = validate(
   )
 )
 
-export const logoutValidator = validate(
+export const refreshTokenValidator = validate(
   checkSchema(
     {
       refreshToken: {
