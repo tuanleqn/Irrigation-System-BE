@@ -12,7 +12,7 @@ class UsersService {
       },
       privateKey: process.env.JWT_SECRET_ACCESS_TOKEN as string,
       options: {
-        expiresIn: parseInt(process.env.REFRESH_TOKEN_EXPIRES_IN as string, 10)
+        expiresIn: parseInt(process.env.ACCESS_TOKEN_EXPIRES_IN as string, 10)
       }
     })
   }
@@ -29,6 +29,7 @@ class UsersService {
       }
     })
   }
+
   private signAccessAndRefreshToken(user_id: string) {
     return Promise.all([this.signAccessToken(user_id), this.signRefreshToken(user_id)])
   }

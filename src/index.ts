@@ -10,6 +10,7 @@ import { Server } from 'socket.io'
 import cors from 'cors'
 import { initMQTT } from './services/mqtt.service'
 import path from 'path'
+import sensorsRouter from './routes/sensor.routes'
 
 const app = express()
 const server = http.createServer(app)
@@ -34,6 +35,7 @@ app.get('/ui', (req, res) => {
 })
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/users', usersRouter)
+app.use('/sensors', sensorsRouter)
 
 //! MQTT
 const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } })

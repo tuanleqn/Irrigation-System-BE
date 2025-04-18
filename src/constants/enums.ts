@@ -15,3 +15,21 @@ export enum Topic {
   PumpState = 'pump-state',
   RelayToPump = 'relay-to-pump'
 }
+
+export enum SensorType {
+  SOIL_MOISTURE = 'SOIL_MOISTURE',
+  TEMPERATURE = 'TEMPERATURE',
+  HUMIDITY = 'HUMIDITY'
+}
+
+export enum DeviceType {
+  RELAY = 'RELAY',
+  WATER_PUMP = 'WATER_PUMP',
+  LCD = 'LCD'
+}
+
+export enum DefaultSensorId {
+  SOIL_MOISTURE = 'Tr582g',
+  TEMPERATURE = 'pFq5mg',
+  HUMIDITY = 'YthNeG'
+}

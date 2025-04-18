@@ -1,7 +1,7 @@
 import mqtt from 'mqtt'
 import { Server } from 'socket.io'
-import dbInstance from '~/models/db'
 import { Topic } from '~/constants/enums'
+import { SensorFactory } from '~/models/factory'
 
 const mqttClient = mqtt.connect(`${process.env.MQTT_URL}`, {
   username: `${process.env.ADAFRUIT_IO_USERNAME}`,
@@ -40,9 +40,14 @@ export const initMQTT = (io: Server) => {
       const type = topicKey ? Topic[topicKey as keyof typeof Topic] : ''
 
       if (type) {
-        // Goi service de luu du lieu vao database
+        // Call models to save data into database
+        try {
+          SensorFactory.createSensorData(type, payload)
+        } catch (error) {
+          console.error('❌ Error saving data to database:', error)
+        }
 
-        // Gửi dữ liệu tới client qua WebSocket
+        // Send to clients via Socket.IO
         io.emit(type, { topic: type, value: payload })
         console.log(`📤 Sent ${type} data to clients:`, { topic: type, value: payload })
       }

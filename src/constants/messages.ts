@@ -14,3 +14,11 @@ export const USERS_MESSAGES = {
   ACCESS_TOKEN_IS_REQUIRED: 'Access token is required',
   ACCESS_TOKEN_IS_INVALID: 'Access token is invalid'
 } as const
+
+export const SENSOR_MESSAGES = {
+  GET_TEMPERATURE_SUCCESS: 'Get temperature success',
+  GET_HUMIDITY_SUCCESS: 'Get humidity success',
+  GET_SOIL_MOISTURE_SUCCESS: 'Get soil moisture success',
+  GET_STATISTICS_SUCCESS: 'Get statistics success',
+  GET_LOGS_SUCCESS: 'Get logs success'
+} as const

@@ -69,6 +69,7 @@ model Sensor {
 
 model SensorData {
   id        String   @id @default(nanoid(6))
+  type      String
   value     Float
   timestamp DateTime @default(now())
 
