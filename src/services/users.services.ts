@@ -4,11 +4,21 @@ import dbInstance from '~/models/db'
 import { hashPassword } from '~/utils/crypto'
 
 class UsersService {
-  private signAccessToken(user_id: string) {
+  private async signAccessToken(user_id: string) {
+    const member = await dbInstance.getClient().member.findUnique({
+      where: {
+        id: user_id
+      },
+      select: {
+        role: true
+      }
+    })
+
     return signToken({
       payload: {
         user_id,
-        token_type: TokenType.AccessToken
+        token_type: TokenType.AccessToken,
+        role: member?.role || 'USER'
       },
       privateKey: process.env.JWT_SECRET_ACCESS_TOKEN as string,
       options: {

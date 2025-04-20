@@ -4,14 +4,14 @@ import { IDevice } from './interfaces'
 import { LCDDisplay, RelaySwitch, WaterPump } from './devices'
 
 export class DeviceFactory {
-  static createDevice(type: DeviceType, id: string): IDevice {
+  static async createDevice(type: DeviceType, id: string): Promise<IDevice> {
     switch (type) {
       case DeviceType.RELAY:
-        return new RelaySwitch(id)
+        return RelaySwitch.create(id, type)
       case DeviceType.WATER_PUMP:
-        return new WaterPump(id)
+        return WaterPump.create(id, type)
       case DeviceType.LCD:
-        return new LCDDisplay(id)
+        return LCDDisplay.create(id, type)
       default:
         throw new Error(`Unknown device type: ${type}`)
     }

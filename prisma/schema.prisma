@@ -50,13 +50,17 @@ model Notification {
 }
 
 model Configuration {
-  id             String  @id @default(nanoid(6))
+  id             String   @id @default(nanoid(6))
   parameterName  String
   parameterValue String
   description    String?
+  timestamp      DateTime @default(now())
 
-  memberId String?
-  member   Member? @relation(fields: [memberId], references: [id])
+  deviceId String
+  device   Device @relation(fields: [deviceId], references: [id])
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id])
 }
 
 model Sensor {
@@ -80,11 +84,27 @@ model SensorData {
 }
 
 model IrrigationEvent {
-  id             String   @id @default(nanoid(6))
-  activationMode Boolean
-  timestamp      DateTime @default(now())
-  status         String
+  id        String   @id @default(nanoid(6))
+  timestamp DateTime @default(now())
+  status    String
 
   sensorDataId String?
   sensorData   SensorData? @relation(fields: [sensorDataId], references: [id])
+
+  deviceId String
+  device   Device @relation(fields: [deviceId], references: [id])
+}
+
+model Device {
+  id                    String   @id @default(nanoid(6))
+  type                  String
+  relayToPump           Boolean?
+  moistureThresholdHigh Float?
+  moistureThresholdLow  Float?
+  pumpMode              Boolean?
+  pumpState             Boolean?
+  displayMessage        String?
+
+  IrrigationEvent IrrigationEvent[]
+  Configuration   Configuration[]
 }

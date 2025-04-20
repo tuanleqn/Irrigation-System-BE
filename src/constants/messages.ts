@@ -22,3 +22,15 @@ export const SENSOR_MESSAGES = {
   GET_STATISTICS_SUCCESS: 'Get statistics success',
   GET_LOGS_SUCCESS: 'Get logs success'
 } as const
+
+export const DEVICE_MESSAGES = {
+  SET_PUMP_MODE_SUCCESS: 'Set pump mode success',
+  GET_PUMP_STATE_SUCCESS: 'Get pump state success',
+  GET_PUMP_MODE_SUCCESS: 'Get pump mode success',
+  GET_RELAY_TO_PUMP_SUCCESS: 'Get relay to pump success',
+  UPDATE_RELAY_TO_PUMP_SUCCESS: 'Update relay to pump success',
+  GET_SOIL_MOISTURE_THRESHOLD_HIGH_SUCCESS: 'Get soil moisture threshold high success',
+  GET_SOIL_MOISTURE_THRESHOLD_LOW_SUCCESS: 'Get soil moisture threshold low success',
+  UPDATE_SOIL_MOISTURE_THRESHOLD_HIGH_SUCCESS: 'Update soil moisture threshold high success',
+  UPDATE_SOIL_MOISTURE_THRESHOLD_LOW_SUCCESS: 'Update soil moisture threshold low success'
+} as const
