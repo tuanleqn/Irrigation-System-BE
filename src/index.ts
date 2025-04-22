@@ -57,3 +57,4 @@ server.listen(process.env.BE_PORT, () => {
   console.log(`Access the local server at http://localhost:${process.env.BE_PORT}`)
   console.log(`Or the network server at https://irrigation-system-be.onrender.com`)
 })
+//test
